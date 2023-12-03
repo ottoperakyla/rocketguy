@@ -6,7 +6,7 @@ let player
 let grid
 let towers
 
-let level = 2
+let level = 0
 let levels = [levelOne, levelTwo, levelThree]
 let gameOver = false
 
