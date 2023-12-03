@@ -150,8 +150,12 @@ class Player {
         }
 
         if (playerPosTile === GRID_GOAL) {
-            level++
-            loadLevel()
+            if (level === levels.length - 1) {
+                gameOver = true
+            } else {
+                level++
+                loadLevel()
+            }
         }
         
         this.x += this.speedX

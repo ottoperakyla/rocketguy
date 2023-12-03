@@ -8,6 +8,7 @@ let towers
 
 let level = 2
 let levels = [levelOne, levelTwo, levelThree]
+let gameOver = false
 
 function loadLevel() {
     grid = []
@@ -51,28 +52,33 @@ function loadLevel() {
 
 function gameloop() {
     colorRect(0, 0, canvas.width, canvas.height, "black")
-    
-    player.move()
-    
-    towers.forEach(tower => 
-        tower.shootAtPlayerIfInSight())
-    
-    movingPlatforms.forEach(movingPlatform => 
-        movingPlatform.move())
 
-    drawGridStaticObjects()
-    drawUI()
+    if (gameOver) {
+        colorText(canvas.width / 2 - 100, canvas.height / 2, "You won the game.", "white")
+    } else {
+        player.move()
+        
+        towers.forEach(tower => 
+            tower.shootAtPlayerIfInSight())
+        
+        movingPlatforms.forEach(movingPlatform => 
+            movingPlatform.move())
 
-    player.draw()
-    movingPlatforms.forEach(movingPlatform => 
-        movingPlatform.draw())
+        drawGridStaticObjects()
+        drawUI()
+
+        player.draw()
+        movingPlatforms.forEach(movingPlatform => 
+            movingPlatform.draw())
+    }
 }
 
+let interval 
 imagesLoaded().then(function(images) {
     imageMap = Object.fromEntries(images)
     player = new Player(0, 0)
     
     loadLevel()
     initInput()    
-    setInterval(gameloop, 1000 / fps)
+    interval = setInterval(gameloop, 1000 / fps)
 })
