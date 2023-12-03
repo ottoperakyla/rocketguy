@@ -22,6 +22,7 @@ function setKeyHoldState(thisKey, setTo) {
         holdRight = setTo;
     }
     if(thisKey == KEY_UP_ARROW) {
+        // TODO: false, when player is on moving platform
         if(player.onGround) {
             player.speedY = -JUMP_POWER;
             player.onGround = false

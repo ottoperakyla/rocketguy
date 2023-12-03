@@ -35,8 +35,7 @@ function isWallAtPixelCoord(x, y) {
   
   return [
     GRID_WALL, 
-    GRID_ICE,
-    GRID_MOVING_PLATFORM
+    GRID_ICE
   ].includes(tileType)
 }
 

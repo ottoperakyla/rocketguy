@@ -27,8 +27,8 @@ class Tower {
                 let shotSpeedY = 0
 
                 this.shot = {
-                    x: this.x, 
-                    y: this.y, 
+                    x: this.x + BLOCK_WIDTH / 2, 
+                    y: this.y + BLOCK_HEIGHT / 2, 
                     speedX: shotSpeedX, 
                     speedY: shotSpeedY, 
                     lifeTime: shotLifeTimeInFrames
@@ -39,8 +39,8 @@ class Tower {
                 let shotSpeedY = playerRow < towerRow ? -SHOT_SPEED : +SHOT_SPEED 
 
                 this.shot = {
-                    x: this.x, 
-                    y: this.y, 
+                    x: this.x + BLOCK_WIDTH / 2, 
+                    y: this.y + BLOCK_HEIGHT / 2, 
                     speedX: shotSpeedX, 
                     speedY: shotSpeedY, 
                     lifeTime: shotLifeTimeInFrames
@@ -62,7 +62,9 @@ class Tower {
                 player.die()
             }
     
-            if (shotPosTile === GRID_WALL || this.shot.lifeTime <= 0) {
+            if (shotPosTile === GRID_WALL || 
+                shotPosTile === GRID_ICE ||
+                this.shot.lifeTime < 0) {
                 this.shot = null
             }
         }

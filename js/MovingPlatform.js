@@ -7,7 +7,7 @@ class MovingPlatform {
         this.y = y
         this.width = PLATFORM_WIDTH
         this.height = PLATFORM_HEIGHT
-        this.speedX = 4
+        this.speedX = 3
     }
 
     move() {

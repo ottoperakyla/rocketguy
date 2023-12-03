@@ -50,7 +50,6 @@ class Player {
             let insideVertically = y >= platform.y && y <= platform.y + platform.height
         
             if (insideHorizontally && insideVertically) {
-              //this.speedX = platform.speedX
               return true
             }
           }
@@ -70,7 +69,8 @@ class Player {
 
         this.angleSpeed = 0
         this.flying = false
-        this.onGround = isWallAtPixelCoord(this.x, this.y + this.radius)
+        this.onGround = isWallAtPixelCoord(this.x, this.y + this.radius) ||
+                        this.isMovingPlatformAtCoord(this.x, this.y + this.radius)
         
         if (this.onGround) {
             this.speedX *= FRICTION    
