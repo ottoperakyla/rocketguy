@@ -105,7 +105,6 @@ class Player {
             this.fuel = Math.max(0, this.fuel - 2/3)
         }
         
-        // TODO: handle collisions with moving objects like GRID_MOVING_PLATFORM
         // moving down into wall
         if (this.speedY > 0 && 
             (isWallAtPixelCoord(this.x, this.y + this.radius) ||

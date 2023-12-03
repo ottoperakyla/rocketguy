@@ -73,12 +73,11 @@ function gameloop() {
     }
 }
 
-let interval 
 imagesLoaded().then(function(images) {
     imageMap = Object.fromEntries(images)
     player = new Player(0, 0)
     
     loadLevel()
     initInput()    
-    interval = setInterval(gameloop, 1000 / fps)
+    setInterval(gameloop, 1000 / fps)
 })

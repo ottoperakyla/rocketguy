@@ -54,10 +54,8 @@ function drawGridStaticObjects() {
                 case GRID_TOWER:
                     colorRect(col*BLOCK_WIDTH, row*BLOCK_HEIGHT, BLOCK_WIDTH-WALL_MARGIN, BLOCK_HEIGHT-WALL_MARGIN, 'brown')      
                     break
-                case GRID_MOVING_PLATFORM:
-                    colorRect(col*BLOCK_WIDTH, row*BLOCK_HEIGHT, BLOCK_WIDTH-WALL_MARGIN, BLOCK_HEIGHT-WALL_MARGIN, 'green')      
-                    break
                 case GRID_EMPTY:
+                case GRID_MOVING_PLATFORM:
                     break
                 default:
                     throw "Unknown grid type: " + grid[gridIndex]

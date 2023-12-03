@@ -4,7 +4,6 @@ const KEY_RIGHT_ARROW = 39;
 const KEY_DOWN_ARROW = 40;
 const KEY_SPACE = 32;
 
-
 let holdLeft = false
 let holdRight = false
 let holdSpace = false
@@ -22,7 +21,6 @@ function setKeyHoldState(thisKey, setTo) {
         holdRight = setTo;
     }
     if(thisKey == KEY_UP_ARROW) {
-        // TODO: false, when player is on moving platform
         if(player.onGround) {
             player.speedY = -JUMP_POWER;
             player.onGround = false
