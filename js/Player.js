@@ -43,8 +43,24 @@ class Player {
         }
     }
 
+    isMovingPlatformAtCoord(x, y) {
+        for (let i = 0; i < movingPlatforms.length; i++) {
+            let platform = movingPlatforms[i]
+            let insideHorizontally = x >= platform.x && x <= platform.x + platform.width
+            let insideVertically = y >= platform.y && y <= platform.y + platform.height
+        
+            if (insideHorizontally && insideVertically) {
+              //this.speedX = platform.speedX
+              return true
+            }
+          }
+          
+        return false
+    }
+
     move() {
-        let standingOnIce = getGridTileAtPixelCoord(this.x, this.y + this.radius) === GRID_ICE
+        let tileTypeUnderPlayer = getGridTileAtPixelCoord(this.x, this.y + this.radius)
+        let standingOnIce = tileTypeUnderPlayer === GRID_ICE
 
         if (standingOnIce) {
             this.speedX = Math.sign(this.dir) * SPEED_ON_ICE
@@ -89,26 +105,35 @@ class Player {
             this.fuel = Math.max(0, this.fuel - 2/3)
         }
         
+        // TODO: handle collisions with moving objects like GRID_MOVING_PLATFORM
         // moving down into wall
-        if (this.speedY > 0 && isWallAtPixelCoord(this.x, this.y + this.radius)) {
+        if (this.speedY > 0 && 
+            (isWallAtPixelCoord(this.x, this.y + this.radius) ||
+            this.isMovingPlatformAtCoord(this.x, this.y + this.radius))) {
             this.y = (1+Math.floor( this.y / BLOCK_HEIGHT )) * BLOCK_HEIGHT - this.radius
             this.speedY = 0
         }
         
         // moving up into wall
-        if (this.speedY < 0 && isWallAtPixelCoord(this.x, this.y - this.radius)) {
+        if (this.speedY < 0 && 
+            (isWallAtPixelCoord(this.x, this.y - this.radius) ||
+            this.isMovingPlatformAtCoord(this.x, this.y - this.radius))) {
             // TODO: hitting hit into wall bugs a little now, player burrows into it
             //this.y = (Math.floor( this.y / BLOCK_HEIGHT )) * BLOCK_HEIGHT + this.radius
             this.speedY = 0
         }
         
         // moving left into wall
-        if (this.speedX < 0 && isWallAtPixelCoord(this.x - this.radius, this.y)) {
+        if (this.speedX < 0 && 
+            (isWallAtPixelCoord(this.x - this.radius, this.y) ||
+            this.isMovingPlatformAtCoord(this.x - this.radius, this.y))) {
             this.speedX = 0
         }
         
         // moving right into wall
-        if (this.speedX > 0 && isWallAtPixelCoord(this.x + this.radius, this.y)) {
+        if (this.speedX > 0 && 
+            (isWallAtPixelCoord(this.x + this.radius, this.y) ||
+            this.isMovingPlatformAtCoord(this.x + this.radius, this.y))) {
             this.speedX = 0
         }
 

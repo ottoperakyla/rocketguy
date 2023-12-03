@@ -12,7 +12,7 @@ class Tower {
         return distance(this, player) < 12*BLOCK_WIDTH
     }
 
-    move() {
+    shootAtPlayerIfInSight() {
         let [playerCol, playerRow] = pixelCoordToColRow(player.x, player.y)
         let [towerCol, towerRow] = pixelCoordToColRow(this.x, this.y)
         

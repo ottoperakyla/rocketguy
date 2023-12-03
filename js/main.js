@@ -6,12 +6,13 @@ let player
 let grid
 let towers
 
-let level = 0
+let level = 1
 let levels = [levelOne, levelTwo]
 
 function loadLevel() {
     grid = []
     towers = []
+    movingPlatforms = []
     
     for (let i = 0; i < levels[level].length; i++) {
         grid[i] = levels[level][i]
@@ -21,19 +22,26 @@ function loadLevel() {
         for (let row = 0; row < GRID_ROWS; row++) {
             let gridIndex = colRowToGridIndex(col, row)
 
-            xPos = BLOCK_WIDTH * col + BLOCK_WIDTH / 2
-            yPos = BLOCK_HEIGHT * row + BLOCK_HEIGHT / 2
+            xPos = BLOCK_WIDTH * col 
+            yPos = BLOCK_HEIGHT * row 
 
             // init player position
             if (grid[gridIndex] === PLAYER_START) {
                 grid[gridIndex] = GRID_EMPTY
-                player.x = xPos
-                player.y = yPos
+                // player.x is player's midpoint, so add BLOCK_WIDTH / 2 to x and y
+                player.x = xPos + BLOCK_WIDTH / 2
+                player.y = yPos + BLOCK_HEIGHT / 2
             }
 
             // init towers
             if (grid[gridIndex] === GRID_TOWER) {
                 towers.push(new Tower(xPos, yPos))
+            }
+
+            // init moving platforms
+            if (grid[gridIndex] === GRID_MOVING_PLATFORM) {
+                grid[gridIndex] = GRID_EMPTY
+                movingPlatforms.push(new MovingPlatform(xPos, yPos))
             }
         }
     }
@@ -45,12 +53,19 @@ function gameloop() {
     colorRect(0, 0, canvas.width, canvas.height, "black")
     
     player.move()
-    towers.forEach(tower => tower.move())
+    
+    towers.forEach(tower => 
+        tower.shootAtPlayerIfInSight())
+    
+    movingPlatforms.forEach(movingPlatform => 
+        movingPlatform.move())
 
-    drawGrid()
+    drawGridStaticObjects()
     drawUI()
 
     player.draw()
+    movingPlatforms.forEach(movingPlatform => 
+        movingPlatform.draw())
 }
 
 imagesLoaded().then(function(images) {

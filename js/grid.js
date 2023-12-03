@@ -15,12 +15,13 @@ const GRID_ICE = 7
 const GRID_FUEL = 8
 const GRID_GOAL = 9
 const GRID_TOWER = 10
+const GRID_MOVING_PLATFORM = 11
 
 const WALL_COLOR = "blue"
 const ICE_COLOR = "lightblue"
 const WALL_MARGIN = 2
 
-function drawGrid() {
+function drawGridStaticObjects() {
     for (let col = 0; col < GRID_COLS; col++) {
         for (let row = 0; row < GRID_ROWS; row++) {
             let gridIndex = colRowToGridIndex(col, row)
@@ -53,10 +54,13 @@ function drawGrid() {
                 case GRID_TOWER:
                     colorRect(col*BLOCK_WIDTH, row*BLOCK_HEIGHT, BLOCK_WIDTH-WALL_MARGIN, BLOCK_HEIGHT-WALL_MARGIN, 'brown')      
                     break
+                case GRID_MOVING_PLATFORM:
+                    colorRect(col*BLOCK_WIDTH, row*BLOCK_HEIGHT, BLOCK_WIDTH-WALL_MARGIN, BLOCK_HEIGHT-WALL_MARGIN, 'green')      
+                    break
                 case GRID_EMPTY:
                     break
-                    default:
-                throw "Unknown grid type: " + grid[gridIndex]
+                default:
+                    throw "Unknown grid type: " + grid[gridIndex]
             }
         }
     }
