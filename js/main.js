@@ -6,8 +6,8 @@ let player
 let grid
 let towers
 
-let level = 1
-let levels = [levelOne, levelTwo]
+let level = 2
+let levels = [levelOne, levelTwo, levelThree]
 
 function loadLevel() {
     grid = []
